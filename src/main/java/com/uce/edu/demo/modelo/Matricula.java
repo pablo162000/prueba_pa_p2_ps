@@ -1,4 +1,4 @@
-package com.uce.edu.demo.matriculaauto.modelo;
+package com.uce.edu.demo.modelo;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 @Component
 @Scope(value= ConfigurableBeanFactory.SCOPE_SINGLETON)
-public class MatriculaVehiculo {
+public class Matricula {
 	
 	private LocalDateTime fechaMatricula;
 	private BigDecimal valorMatricula;

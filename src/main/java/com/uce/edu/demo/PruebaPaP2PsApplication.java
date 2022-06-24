@@ -8,28 +8,22 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.uce.edu.demo.matriculaauto.modelo.MatriculaVehiculo;
-import com.uce.edu.demo.matriculaauto.modelo.Propietario;
-import com.uce.edu.demo.matriculaauto.modelo.Vehiculo;
-import com.uce.edu.demo.matriculaauto.service.IMatriculaVehiculoService;
-import com.uce.edu.demo.matriculaauto.service.IPropietarioService;
-import com.uce.edu.demo.matriculaauto.service.IVehiculoService;
+import com.uce.edu.demo.modelo.Propietario;
+import com.uce.edu.demo.modelo.Vehiculo;
+import com.uce.edu.demo.service.IMatriculaGestorService;
+import com.uce.edu.demo.service.IPropietarioService;
+import com.uce.edu.demo.service.IVehiculoService;
 
 @SpringBootApplication
 public class PruebaPaP2PsApplication implements CommandLineRunner{
 
 	@Autowired
-	private Vehiculo vehiculo;
+	private IVehiculoService iVehiculoService;
 	@Autowired
-	private Propietario propietario;
+	private IPropietarioService iPropietarioService;
+	
 	@Autowired
-	private MatriculaVehiculo matriculaVehiculo;
-	@Autowired
-	private IVehiculoService vehiculoService;
-	@Autowired
-	private IPropietarioService propietarioService;
-	@Autowired
-	private IMatriculaVehiculoService matriculaVehiculoService;
+	private IMatriculaGestorService iMatriculaGestorService;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(PruebaPaP2PsApplication.class, args);
@@ -38,29 +32,28 @@ public class PruebaPaP2PsApplication implements CommandLineRunner{
 	@Override
 	public void run(String... args) throws Exception {
 		// TODO Auto-generated method stub
+		Vehiculo vehiculo = new Vehiculo();
+		vehiculo.setMarca("Totota");
+		vehiculo.setPlaca("PCT8976");
+		vehiculo.setPrecio(new BigDecimal(50000));
+		vehiculo.setTipo("L");
+		this.iVehiculoService.insertar(vehiculo);
 		
-		this.vehiculo.setMarca("Toyota");
-		this.vehiculo.setPlaca("PIX500");
-		this.vehiculo.setPrecio(new BigDecimal(21000));
-		this.vehiculo.setTipo("liviano");
+		//2
+		vehiculo.setPrecio(new BigDecimal(40000));
+		vehiculo.setMarca("Toyota");
+		this.iVehiculoService.actualizar(vehiculo);
 		
-		this.vehiculoService.insertarVehiculo(vehiculo);
-		this.vehiculo.setMarca("Hyundai");
-		this.vehiculo.setPlaca("PIX501");	
-		this.vehiculoService.actualizar(vehiculo);
+		//3
+		Propietario propietario = new Propietario();
+		propietario.setApellido("Cayambe");
+		propietario.setNombre("Edison");
+		propietario.setCedula("541551515");
+		propietario.setFechaNacimiento(LocalDateTime.now());
+		this.iPropietarioService.crear(propietario);
 		
-		this.propietario.setApellido("Suntaxi");
-		this.propietario.setCedula("1724157688");
-		this.propietario.setFechaNacimiento(LocalDateTime.of(2000, 2, 16, 3, 15));
-		this.propietario.setNombre("Pablo");
-		this.propietarioService.crearPropietario(propietario);
-		
-		this.matriculaVehiculo.setFechaMatricula(LocalDateTime.now());
-		this.matriculaVehiculo.setPropietario(propietario);
-this.matriculaVehiculo.setVehiculo(vehiculo);
-
-this.matriculaVehiculoService.crearMatricula("1724157688","PIX500");
-		
+		//4
+		this.iMatriculaGestorService.generar("541551515", "PCT8976");
 		
 		
 	}

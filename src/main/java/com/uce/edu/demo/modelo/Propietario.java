@@ -1,4 +1,4 @@
-package com.uce.edu.demo.matriculaauto.modelo;
+package com.uce.edu.demo.modelo;
 
 import java.time.LocalDateTime;
 
